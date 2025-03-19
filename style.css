@@ -1,0 +1,86 @@
+/* General Styling */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+    color: white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* Container Styling */
+.container {
+    width: 350px;
+    padding: 25px;
+    background: rgba(34, 34, 34, 0.95);
+    border-radius: 12px;
+    box-shadow: 0px 0px 15px rgba(255, 165, 0, 0.4);
+    text-align: center;
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+/* Input Fields */
+input {
+    width: 100%;
+    margin: 10px 0;
+    padding: 12px;
+    border: 2px solid rgba(255, 165, 0, 0.6);
+    border-radius: 6px;
+    background: rgba(255, 165, 0, 0.1);
+    color: white;
+    font-size: 16px;
+    outline: none;
+    transition: 0.3s ease-in-out;
+}
+
+input:focus {
+    border-color: #ea580c;
+    background: rgba(255, 165, 0, 0.2);
+    box-shadow: 0px 0px 8px rgba(255, 165, 0, 0.8);
+}
+
+/* Buttons */
+button {
+    width: 100%;
+    margin-top: 10px;
+    padding: 12px;
+    background: #ea580c;
+    color: #1a1a1a;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+
+button:hover {
+    background: #ea580c;
+    box-shadow: 0px 0px 12px rgba(255, 165, 0, 0.7);
+}
+
+/* Links */
+a {
+    color: #ea580c;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

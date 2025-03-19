@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strength gain</title>
+    <link rel="stylesheet" href="./css/strengthgain.css">
+    <style>
+        .nav-bar {
+            background-color: var(--primary-color);
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            box-shadow: var(--shadow);
+        }
+        .nav-bar a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.5rem;
+            padding: 0.5rem 1rem;
+            transition: color 0.3s ease-in-out;
+            position: relative;
+        }
+        .nav-bar a::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: -3px;
+            width: 0;
+            height: 2px;
+            background-color: var(--white);
+            transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
+        }
+        .nav-bar a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+        .video-container {
+            text-align: center;
+            position: relative;
+        }
+        .video-container video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+        .video-container p {
+            margin-top: 0.5rem;
+            font-weight: bold;
+            color: var(--text-color);
+        }
+        .video-container video:hover {
+            autoplay: true;
+            muted: true;
+            loop: true;
+        }
+        .timer {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-top: 2rem;
+            padding: 1rem 2rem;
+            color: var(--white);
+            background-color: var(--primary-color);
+            border-radius: 10px;
+            display: block;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: var(--shadow-lg);
+            transition: transform 0.2s ease-in-out;
+        }
+        .timer.active {
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <a href="./index.html">Home</a>
+        <a href="./strengthgain.html">Strength</a>
+        <a href="./weightloss.html">Weight Loss</a>
+        <a href="./yoga.html">Yoga</a>
+        <a href="#group-classes">Group Classes</a>
+        <a href="./cardio.html">Cardio Workouts</a>
+    </nav>
+    
+    <div class="container">
+        <header class="section-header">
+            <h2>Strength and Gain Section</h2>
+            <p>Watch these short videos to learn more.</p>
+        </header>
+        
+        <section class="video-section">
+            <div class="video-container">
+                <video muted>
+                    <source src="./videos/strength/squats.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <p>Squats</p>
+            </div>
+            <div class="video-container">
+                <video muted>
+                    <source src="./videos/strength/barbell.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <p>Barbell</p>
+            </div>
+            <div class="video-container">
+                <video muted>
+                    <source src="./videos/strength/pullups.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <p>Pull Ups</p>
+            </div>
+            <div class="video-container">
+                <video muted>
+                    <source src="./videos/strength/benchpress.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <p>Bench press</p>
+            </div>
+            <div class="video-container">
+                <video muted>
+                    <source src="./videos/strength/overhead.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <p>Overhead</p>
+            </div>
+            <div class="video-container">
+                <video muted>
+                    <source src="./videos/strength/deadlifts.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <p>Dead Lifts</p>
+            </div>
+            <div class="video-container">
+                <video muted>
+                    <source src="./videos/strength/plank.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <p>Planks</p>
+            </div>
+            <div class="video-container">
+                <video muted>
+                    <source src="./videos/strength/pushups.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <p>Push Ups</p>
+            </div>
+        </section>
+        <div class="timer" id="video-timer">Click on a video to start the timer</div>
+    </div>
+    <script>
+        let activeTimer;
+        let activeVideo;
+
+        document.querySelectorAll(".video-container video").forEach(video => {
+            video.addEventListener("mouseenter", () => {
+                video.play();
+            });
+            video.addEventListener("mouseleave", () => {
+                video.pause();
+                video.currentTime = 0;
+            });
+            video.addEventListener("click", () => {
+                if (activeVideo && activeVideo !== video) {
+                    alert("You switched to a different video!");
+                }
+                
+                clearInterval(activeTimer);
+                let timerElement = document.getElementById("video-timer");
+                let time = 0;
+                timerElement.textContent = `Time Spent: ${time} sec`;
+                timerElement.classList.add("active");
+                activeVideo = video;
+                
+                activeTimer = setInterval(() => {
+                    time++;
+                    timerElement.textContent = `Time Spent: ${time} sec`;
+                    timerElement.classList.toggle("active");
+                    if (video.paused || video.ended) {
+                        clearInterval(activeTimer);
+                        timerElement.classList.remove("active");
+                    }
+                }, 1000);
+            });
+        });
+    </script>
+</body>
+</html>

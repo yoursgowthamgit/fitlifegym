@@ -1,0 +1,74 @@
+/* Trainers Section Styles */
+.trainers {
+    padding: 5rem 0;
+}
+
+.trainers-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 2rem;
+}
+
+.trainer-card {
+    background-color: var(--white);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: box-shadow 0.3s;
+}
+
+.trainer-card:hover {
+    box-shadow: var(--shadow-lg);
+}
+
+.trainer-image {
+    position: relative;
+    height: 20rem;
+}
+
+.trainer-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.trainer-content {
+    padding: 1.5rem;
+}
+
+.trainer-content h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.trainer-content p {
+    color: var(--text-light);
+    margin-bottom: 1rem;
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-link {
+    color: var(--text-light);
+    transition: color 0.3s;
+}
+
+.social-link:hover {
+    color: var(--primary-color);
+}
+
+@media (min-width: 768px) {
+    .trainers-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .trainers-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Tracker</title>
+    <link rel="stylesheet" href="./css/progress.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="nav-wrapper">
+        <ul class="nav-links">
+            <li><a href="./index.html">Home</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">Classes</a>
+                <div class="dropdown-content">
+                    <a href="./strengthgain.html">Strength Gain</a>
+                    <a href="./cardio.html">Cardio</a>
+                    <a href="./weightloss.html">Weight Loss</a>
+                    <a href="./yoga.html">Yoga</a>
+                    <a href="#">Group Classes</a>
+                </div>
+            </li>
+            <li><a href="./progress.html">Progress</a></li>
+            <li><a href="./pricing.html">Pricing</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <!-- Left Side: Smaller Form -->
+        <div class="form-container">
+            <h2>Add Activity</h2>
+            <form id="activity-form">
+                <label for="activity">Activity:</label>
+                <input type="text" id="activity" required>
+                
+                <label for="duration">Duration (min):</label>
+                <input type="number" id="duration" required>
+                
+                <label for="calories">Calories Burned:</label>
+                <input type="number" id="calories" required>
+                
+                <label for="time">Time:</label>
+                <select id="time">
+                    <option value="Morning">Morning</option>
+                    <option value="Afternoon">Afternoon</option>
+                    <option value="Evening">Evening</option>
+                </select>
+                
+                <button type="submit" class="add-btn">Add</button>
+                <button type="button" class="reset-btn" id="reset-btn">Reset</button>
+            </form>
+        </div>
+
+        <!-- Right Side: Pie Chart -->
+        <div class="chart-container">
+            <h2>Activity Breakdown</h2>
+            <canvas id="activityChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const ctx = document.getElementById("activityChart").getContext("2d");
+            let activities = JSON.parse(localStorage.getItem("activities")) || [];
+            
+            const chart = new Chart(ctx, {
+                type: "pie",
+                data: {
+                    labels: activities.map(a => a.name),
+                    datasets: [{
+                        data: activities.map(a => a.duration),
+                        backgroundColor: ["#ff5733", "#33ff57", "#3357ff", "#ff33a8", "#f3ff33", "#33fff3"],
+                        borderWidth: 1
+                    }]
+                }
+            });
+
+            function updateChart() {
+                chart.data.labels = activities.map(a => a.name);
+                chart.data.datasets[0].data = activities.map(a => a.duration);
+                chart.update();
+                localStorage.setItem("activities", JSON.stringify(activities));
+            }
+
+            document.getElementById("activity-form").addEventListener("submit", function (event) {
+                event.preventDefault();
+
+                const name = document.getElementById("activity").value;
+                const duration = parseInt(document.getElementById("duration").value);
+                const calories = parseInt(document.getElementById("calories").value);
+                const time = document.getElementById("time").value;
+
+                activities.push({ name, duration, calories, time });
+                updateChart();
+
+                this.reset();
+            });
+
+            document.getElementById("reset-btn").addEventListener("click", function () {
+                activities = [];
+                updateChart();
+                localStorage.removeItem("activities");
+            });
+
+            updateChart();
+        });
+    </script>
+</body>
+</html>
